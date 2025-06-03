@@ -1,4 +1,4 @@
-# Alg to Img
+# [Alg to Img](https://andlamb2002.github.io/alg-to-img/)
 
 A web app that converts Rubik's Cube algorithms into visual cube images using the [VisualCube API](https://visualcube.api.cubing.net/).
 
