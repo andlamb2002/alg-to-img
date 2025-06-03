@@ -1,0 +1,34 @@
+name: Deploy Frontend to GH Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        working-directory: client
+        run: npm ci
+
+      - name: Build the project
+        working-directory: client
+        run: npm run build
+
+      - name: Deploy to GH Pages
+        working-directory: client
+        run: npm run deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}\
+          # CNAME: example.com  
