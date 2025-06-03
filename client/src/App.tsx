@@ -128,7 +128,7 @@ function App() {
 
     setAlgInput(algs.join('\n'));
 
-    const res = await axios.post("${API_BASE_URL}/api/generate", {
+    const res = await axios.post(`${API_BASE_URL}/api/generate`, {
       algs,
       ...params,
     });
