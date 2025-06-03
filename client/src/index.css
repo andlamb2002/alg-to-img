@@ -1,0 +1,47 @@
+body {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.app-container {
+  max-width: 60%;
+  margin: 0 auto;
+}
+
+.form-row-1 {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form-row-1 > label {
+  flex: 0 0 70%;
+}
+
+.toggle-container {
+  margin-left: 1rem;
+  flex-direction: column;
+}
+
+textarea {
+  width: 100%;
+}
+
+.form-row-2 {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.radio-group {
+  flex: 1;
+}
+
+img {
+  width: 256px;
+  height: 256px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+button {
+  width: 100%;
+}
