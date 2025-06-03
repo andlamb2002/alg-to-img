@@ -158,9 +158,9 @@ function App() {
       <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
 
         <div className="form-row-1">
-          <label>
-            Algorithms: 
+          <label htmlFor="algInput">Algorithms:
             <textarea
+              id="algInput"
               value={algInput}
               onChange={(e) => setAlgInput(e.target.value)}
               rows={8}
@@ -169,8 +169,9 @@ function App() {
           </label>
 
           <div className="toggle-container">
-            <label role="switch">
+            <label htmlFor="inverseToggle" role="switch">
               <input
+                id="inverseToggle"
                 type="checkbox"
                 checked={params.inverse}
                 onChange={() => setParams(p => ({ ...p, inverse: !p.inverse }))}
@@ -178,8 +179,9 @@ function App() {
               Inverse
             </label>
 
-            <label role="switch">
+            <label htmlFor="mirrorToggle" role="switch">
               <input
+                id="mirrorToggle"
                 type="checkbox"
                 checked={params.mirror}
                 onChange={() => setParams(p => ({ ...p, mirror: !p.mirror }))}
@@ -187,8 +189,9 @@ function App() {
               Mirror
             </label>
 
-            <label role="switch">
+            <label htmlFor="viewToggle" role="switch">
               <input
+                id="viewToggle"
                 type="checkbox"
                 checked={params.view}
                 onChange={(e) =>
