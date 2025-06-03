@@ -10,7 +10,7 @@ import './index.css';
 const API_BASE_URL =
   import.meta.env.MODE === "development"
     ? "http://localhost:5000"
-    : "https://alg-to-img.onrender.com/";
+    : "https://alg-to-img.onrender.com";
 
 type Stage = "ll" | "oll" | "coll";
 type TopColor = "yellow" | "white" | "green" | "blue" | "red" | "orange";
