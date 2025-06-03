@@ -10,6 +10,7 @@ app.use(express.json());
 const PORT = process.env.PORT || 5000;
 
 enum Stage {
+  None = "",
   LL = "ll",
   OLL = "oll",
   COLL = "coll",
@@ -91,7 +92,7 @@ app.post('/api/generate', (req: Request<{}, {}, GenerateRequest>, res: Response)
     let url = `https://visualcube.api.cubing.net/visualcube.php?fmt=svg&size=${size}&pzl=${pzl}&${urlParam}=${encodeURIComponent(finalAlg)}`;
 
     if (view) url += `&view=plan`;
-    if (stage) url += `&stage=${stage}`;
+    if (stage !== "") url += `&stage=${stage}`;
     if (scheme) url += `&sch=${scheme}`;
 
     return { alg, url };

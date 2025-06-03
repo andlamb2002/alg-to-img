@@ -12,7 +12,7 @@ const API_BASE_URL =
     ? "http://localhost:5000"
     : "https://alg-to-img.onrender.com";
 
-type Stage = "ll" | "oll" | "coll";
+type Stage = "" | "ll" | "oll" | "coll";
 type TopColor = "yellow" | "white" | "green" | "blue" | "red" | "orange";
 
 interface Params {
@@ -73,7 +73,7 @@ function App() {
   const defaultParams: Params = {
     pzl: 3,
     view: true,
-    stage: "ll",
+    stage: "",
     size: 256,
     inverse: false,
     mirror: false,
@@ -237,6 +237,16 @@ function App() {
 
           <fieldset className="radio-group">
             <legend>Stage</legend>
+            <label>
+              <input
+                type="radio"
+                name="stage"
+                value=""
+                checked={params.stage === ""}
+                onChange={() => setParams(p => ({ ...p, stage: "" }))}
+              />
+              None
+            </label>
             {["ll", "oll", "coll"].map(stage => (
               <label key={stage}>
                 <input
