@@ -74,7 +74,7 @@ function App() {
     pzl: 3,
     view: true,
     stage: "ll",
-    size: 128,
+    size: 256,
     inverse: false,
     mirror: false,
     topColor: "yellow",
@@ -95,6 +95,8 @@ function App() {
     return defaultParams;
   });
 
+  const [loading, setLoading] = useState(false);
+
   const [images, setImages] = useState<CubeImage[]>(() => {
     const saved = localStorage.getItem("cubeImages");
     return saved ? JSON.parse(saved) : [];
@@ -113,27 +115,39 @@ function App() {
   }, [images]);
 
   const handleSubmit = async () => {
-    const LEGAL_MOVES: RegExp = /^[UDLRFBudlrfbMESxyz2']+$/;
+    setLoading(true);
 
-    const algs = algInput
-      .split('\n')
-      .map(line => line.trim())
-      .map(line =>
-        line
-          .split(' ')
-          .filter(move => LEGAL_MOVES.test(move))
-          .join(' ')
-      )
-      .filter(line => line.length > 0);
+    try {
+      const LEGAL_MOVES: RegExp = /^[UDLRFBudlrfbMESxyz2']+$/;
 
-    setAlgInput(algs.join('\n'));
+      const algs = algInput
+        .split('\n')
+        .map(line => line.trim())
+        .map(line =>
+          line
+            .split(' ')
+            .filter(move => LEGAL_MOVES.test(move))
+            .join(' ')
+        )
+        .filter(line => line.length > 0);
 
-    const res = await axios.post(`${API_BASE_URL}/api/generate`, {
-      algs,
-      ...params,
-    });
+      setAlgInput(algs.join('\n'));
 
-    setImages(res.data.images);
+      const res = await axios.post(`${API_BASE_URL}/api/generate`, {
+        algs,
+        ...params,
+      });
+
+      setImages(res.data.images);
+    }
+    catch (error) {
+      console.error("Error generating images:", error);
+      return;
+    }
+    finally {
+      setLoading(false);
+    }
+    
   };
 
   return (
@@ -259,6 +273,8 @@ function App() {
       </form>
 
       <div>
+        {loading && <p>Loading images...</p>}
+
         {images.map((img, idx) => (
           <div key={idx}>
             <img src={img.url} alt={img.alg} />
