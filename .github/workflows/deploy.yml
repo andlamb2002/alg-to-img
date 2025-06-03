@@ -26,9 +26,10 @@ jobs:
         working-directory: client
         run: npm run build
 
-      - name: Deploy to GH Pages
-        working-directory: client
-        run: npm run deploy
+      - name: Deploy to GitHub Pages
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}\
-          # CNAME: example.com  
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.email "support+actions@github.com"
+          git config --global user.name "github-actions[bot]"
+          npm run deploy
