@@ -33,4 +33,5 @@ jobs:
           git config --global user.email "support+actions@github.com"
           git config --global user.name "github-actions[bot]"
           cd client
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}
           npm run deploy
