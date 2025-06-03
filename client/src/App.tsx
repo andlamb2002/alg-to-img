@@ -2,8 +2,15 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 import '@picocss/pico';
 import './index.css';  
+
+const API_BASE_URL =
+  import.meta.env.MODE === "development"
+    ? "http://localhost:5000"
+    : "https://alg-to-img.onrender.com/";
 
 type Stage = "ll" | "oll" | "coll";
 type TopColor = "yellow" | "white" | "green" | "blue" | "red" | "orange";
@@ -28,7 +35,7 @@ async function downloadImages(images: { alg: string; url: string }[]): Promise<v
 
   if (images.length === 1) {
     try {
-      const response = await axios.get(`/api/image?url=${encodeURIComponent(images[0].url)}`, {
+      const response = await axios.get(`${API_BASE_URL}/api/image?url=${encodeURIComponent(images[0].url)}`, {
         responseType: "blob"
       });
       saveAs(response.data, `alg.png`);
@@ -43,7 +50,7 @@ async function downloadImages(images: { alg: string; url: string }[]): Promise<v
 
   for (let i = 0; i < images.length; i++) {
     try {
-      const response = await axios.get(`/api/image?url=${encodeURIComponent(images[i].url)}`, {
+      const response = await axios.get(`${API_BASE_URL}/api/image?url=${encodeURIComponent(images[i].url)}`, {
         responseType: "blob"
       });      
       zip.file(`alg${i + 1}.png`, response.data);
@@ -121,7 +128,7 @@ function App() {
 
     setAlgInput(algs.join('\n'));
 
-    const res = await axios.post("/api/generate", {
+    const res = await axios.post("${API_BASE_URL}/api/generate", {
       algs,
       ...params,
     });
